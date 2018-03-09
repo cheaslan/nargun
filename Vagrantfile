@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider "vmware_workstation" do |vw, override|
     override.vm.box = 'hashicorp-vagrant/archlinux'
     vw.gui = true
-    vw.vmx['memsize'] = 2046
+    vw.vmx['memsize'] = 2048
     vw.vmx['numvcpus'] = 2
     vw.vmx['displayname'] = 'nargun'
   end
