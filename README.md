@@ -74,5 +74,12 @@ vagrant ssh
 chromium
 ```
 
+**Fedora**
+```
+sudo dnf install vagrant vagrant-libvirt
+export DISPLAY:0.0
+vagrant ssh -- chromium
+```
+
 ## Issues with Windows and Vagrant
 Follow this [guide](https://www.swtestacademy.com/quick-start-vagrant-windows-10/).
