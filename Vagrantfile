@@ -1,4 +1,4 @@
-# Vagrant for nargun 
+# Vagrant for nargun
 Vagrant.configure("2") do |config|
   # bareminimum archlinux build on daily basis
   config.vm.box = "archlinux/archlinux"
@@ -7,12 +7,20 @@ Vagrant.configure("2") do |config|
   # config.vm.network "public_network" # disabling due to unknown net errors
   config.vm.provider :virtualbox do |vb|
     # Enable USB 2.0
-    vb.customize ["modifyvm", :id, "--usb", "on", "--usbehci", "on"]
+    # vb.customize ["modifyvm", :id, "--usb", "on", "--usbehci", "on"]
     # RAM 2GB
     vb.memory = 2048
      # CPU x2
     vb.cpus = 2
     vb.name = "nargun"
+  end
+  # VMWare Workstation (EXPERIMENTAL)
+  config.vm.provider "vmware_workstation" do |vw, override|
+    override.vm.box = 'hashicorp-vagrant/archlinux'
+    vw.gui = true
+    vw.vmx['memsize'] = 2046
+    vw.vmx['numvcpus'] = 2
+    vw.vmx['displayname'] = 'nargun'
   end
 
   config.vm.provision "shell", inline: <<-SHELL
