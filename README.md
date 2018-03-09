@@ -74,5 +74,5 @@ vagrant ssh
 chromium
 ```
 
-## Issue with Windows and Vagrant
+## Issues with Windows and Vagrant
 Follow this [guide](https://www.swtestacademy.com/quick-start-vagrant-windows-10/).
