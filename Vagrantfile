@@ -23,6 +23,15 @@ Vagrant.configure("2") do |config|
     vw.vmx['numvcpus'] = 2
     vw.vmx['displayname'] = 'nargun'
   end
+  # VMWare Fusion (EXPERIMENTAL)
+  config.vm.provider "vmware_fusion" do |vf, override|
+    override.vm.box = 'hashicorp-vagrant/archlinux'
+    #vw.gui = true
+    vf.ssh_info_public = true
+    vf.vmx['memsize'] = 2048
+    vf.vmx['numvcpus'] = 2
+    vf.vmx['displayname'] = 'nargun'
+  end
 
   config.vm.provision "shell", inline: <<-SHELL
     echo "[i] Setting a network mirror"

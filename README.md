@@ -5,7 +5,7 @@ A minimal and immutable Linux distro for [Professional Hacker](https://elttam.co
 * OS: Archilinux 64bit
 * RAM: 2GB
 * CPU: 2 cores
-* Hypervisor: VirtualBox (default) or VMWare Workstation (Experimental)
+* Hypervisor: VirtualBox (default) or VMWare Workstation/Fusion (Experimental)
 * Default user: vagrant (with sudo)
 * Build: Vagrant (to build and destroy the VM)
 
@@ -65,20 +65,31 @@ When you SSH for the first time, ignore the following error message.
 .Xauthority will be created.
 `/usr/bin/xauth:  file /home/vagrant/.Xauthority does not exist`
 
-## cannot open display: localhost:10.0
+## cannot open display: localhost:10.0 or libGL errors
+**Windows and Linux**
 Set DISPLAY environment variable. On Windows make sure Xming is running.
-On OSX, you need to install XQuartz first.
 ```
 export DISPLAY=localhost:0.0
 vagrant ssh
 chromium
 ```
 
+**OSX**
+Once you setup, XQuarts, login and logout. There is no need to set DISPLAY environment variable.
+```
+brew cask install xquartz virtualbox virtualbox-extension-pack vagrant
+#logout/login
+vagrant up
+vagrant ssh
+chromium --disable-gpu
+```
+
 **Fedora**
 ```
 sudo dnf install vagrant vagrant-libvirt
 export DISPLAY:0.0
-vagrant ssh -- chromium
+vagrant ssh
+chromium
 ```
 
 ## Issues with Windows and Vagrant
