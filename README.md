@@ -25,13 +25,76 @@ A minimal and immutable Linux distro for [Professional Hacker](https://elttam.co
 
 1. Download and setup [Vagrant](https://www.vagrantup.com/)
 2. Download and setup [VirtualBox](https://www.virtualbox.org/) and Extension Pack.
-3. For Windows install [Xming](https://sourceforge.net/projects/xming/). For OSX, [XQuartz](https://www.xquartz.org/).
 4. Clone this repository and go to the cloned directory.
 5. `vagrant up` and `vagrant ssh`
 6. All done!
 
+For applications with graphical user interface, Nargun supports both X11 forwarding and VNC.
+
+## Linux
+**Using VNC**
+
+Install a VNC client on your host, e.g. [tigervnc](http://tigervnc.org/).
+```
+vagrant ssh
+# ./vnc.sh APPLICATION
+./vnc.sh chromium
+```
+
+Connect using VNC client on `localhost:5900`.
+
+**Using X11**
+
+```
+export DISPLAY=localhost:0.0
+vagrant ssh
+chromium
+```
+
+## Windows
+**Using VNC**
+
+Install a VNC client on your host, e.g. [TightVNC](https://www.tightvnc.com/).
+```
+vagrant ssh
+# ./vnc.sh APPLICATION
+./vnc.sh chromium
+```
+
+Connect using VNC client on `localhost:5900`.
+
+**Using X11**
+Install [Xming](https://sourceforge.net/projects/xming/). Open and close terminal.
+
+```
+export DISPLAY=localhost:0.0
+vagrant ssh
+chromium
+```
+
+## OSX
+**Using VNC**
+
+```
+vagrant ssh
+# ./vnc.sh APPLICATION
+./vnc.sh chromium
+```
+
+Connect using built-in VNC client `open vnc://localhost:5900`.
+
+**Using X11**
+
+Install [XQuartz](https://www.xquartz.org/), logout and login.
+```
+brew cask install xquartz virtualbox virtualbox-extension-pack vagrant
+#logout/login
+vagrant up
+vagrant ssh
+chromium --disable-gpu
+```
+
 # Usage
-X11 forwarding is enabled by default. `vagrant ssh` and run any X11 program
 
 ## Shared directory with the host
 By default the current host directory is mapped to `/vagrant` on the VM.
@@ -65,24 +128,8 @@ When you SSH for the first time, ignore the following error message.
 .Xauthority will be created.
 `/usr/bin/xauth:  file /home/vagrant/.Xauthority does not exist`
 
-## cannot open display: localhost:10.0 or libGL errors
-**Windows and Linux**
+## cannot open display: localhost:10.0
 Set DISPLAY environment variable. On Windows make sure Xming is running.
-```
-export DISPLAY=localhost:0.0
-vagrant ssh
-chromium
-```
-
-**OSX**
-Once you setup, XQuarts, login and logout. There is no need to set DISPLAY environment variable.
-```
-brew cask install xquartz virtualbox virtualbox-extension-pack vagrant
-#logout/login
-vagrant up
-vagrant ssh
-chromium --disable-gpu
-```
 
 **Fedora**
 ```
@@ -92,5 +139,16 @@ vagrant ssh
 chromium
 ```
 
+## libGL errors
+Once you setup, XQuarts, login and logout.
+```
+vagrant ssh
+chromium --disable-gpu
+```
+
 ## Issues with Windows and Vagrant
 Follow this [guide](https://www.swtestacademy.com/quick-start-vagrant-windows-10/).
+
+## VNC client fails to connect
+Check forwarded VNC port on the VM settings or during `vagrant up`
+The VNC port may change in case it collides with a port already in use.

@@ -4,6 +4,8 @@ Vagrant.configure("2") do |config|
   config.vm.box = "archlinux/archlinux"
   config.vm.hostname = "nargun"
   config.ssh.forward_x11 = true
+  config.vm.network "forwarded_port", guest: 5900, host:5900,
+      auto_correct: true # VNC port forwarding
   # config.vm.network "public_network" # disabling due to unknown net errors
   config.vm.provider :virtualbox do |vb|
     # Enable USB 2.0
@@ -39,7 +41,7 @@ Vagrant.configure("2") do |config|
     echo "[i] Applying latest updates"
     pacman -Syu --noconfirm
     echo "[i] Installing base tools"
-    pacman -Sy --noconfirm coreutils wget git base-devel vim openvpn tmux gdb mitmproxy nmap john xorg-xauth xorg-xeyes chromium shared-mime-info
+    pacman -Sy --noconfirm coreutils wget git base-devel vim openvpn tmux gdb mitmproxy nmap john xorg-xauth xorg-xeyes chromium shared-mime-info xorg-server-xvfb x11vnc
     cd /tmp \
     && sudo -u vagrant git clone https://aur.archlinux.org/package-query.git \
     && sudo -u vagrant git clone https://aur.archlinux.org/yaourt.git \
@@ -59,6 +61,9 @@ Vagrant.configure("2") do |config|
     echo "[i] Enabling X11 forwarding"
     cp -v /vagrant/sshd_config /etc/ssh/
     systemctl restart sshd
+    echo "[i] Copying VNC wrapper"
+    cp -v /vagrant/vnc* /home/vagrant/
+    chmod +x /home/vagrant/vnc.sh
     echo "[i] All done!"
   SHELL
 end
