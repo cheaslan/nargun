@@ -64,6 +64,7 @@ vagrant ssh
 Connect using VNC client on `localhost:5900`.
 
 **Using X11**
+
 Install [Xming](https://sourceforge.net/projects/xming/). Open and close terminal.
 
 ```
@@ -140,7 +141,7 @@ chromium
 ```
 
 ## libGL errors
-Once you setup, XQuarts, login and logout.
+Once you setup XQuarts, login and logout.
 ```
 vagrant ssh
 chromium --disable-gpu
@@ -152,3 +153,10 @@ Follow this [guide](https://www.swtestacademy.com/quick-start-vagrant-windows-10
 ## VNC client fails to connect
 Check forwarded VNC port on the VM settings or during `vagrant up`
 The VNC port may change in case it collides with a port already in use.
+
+## /bin/bash^M: bad interpreter
+```
+vim FILE
+:set fileformat=unix
+:wq
+```
